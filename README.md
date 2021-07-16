@@ -4,6 +4,7 @@ File encryption using chaotic unimodal 1D maps of the form <img src="https://ren
 **Features**  
 * Variable password size: 14 to 64 characters (longer passwords result in higher security)  
 * At least <img src="https://render.githubusercontent.com/render/math?math=10^{27}"> non-degenerate combinations
+* Works with all kinds of files.
 * Straightforward algorithm without any complicated bitwise/math operations
 
 Essentially the program encrypts a given file byte by byte using a reversible and chaotic transformation.  
