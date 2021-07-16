@@ -1,5 +1,5 @@
 # Whisper
-File encryption using chaotic unimodal 1D maps of the form <img src="https://render.githubusercontent.com/render/math?math=x' = rx^p(1-x^q)">
+File encryption using chaotic unimodal 1D maps of the form <img src="https://render.githubusercontent.com/render/math?math=x' = rx^p(1-x)^q">
 
 **Features**  
 * Variable password size: 14 to 64 characters (longer passwords result in higher security)  
