@@ -3,7 +3,7 @@ File encryption using chaotic unimodal 1D maps of the form <img src="https://ren
 
 **Features**  
 * Variable password size: 14 to 64 characters (longer passwords result in higher security)  
-* At least <img src="https://render.githubusercontent.com/render/math?math=10^{27}"> non-degenerate combinations
+* At least <img src="https://render.githubusercontent.com/render/math?math=10^{27}"> non-degenerate combinations for a 14 character password, x 94 combinations for each extra character
 * Works with all kinds of files.
 * Straightforward algorithm without any complicated bitwise/math operations
 
