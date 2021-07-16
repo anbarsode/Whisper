@@ -5,7 +5,7 @@
 #include <assert.h>
 #include <string.h>
 #include <iomanip>
-#include <Windows.h>
+#include <Windows.h> //Comment this line out for non-Windows platforms
 #include <vector>
 
 void show_help(std::string err_msg) //Usage help
@@ -294,7 +294,7 @@ void decrypt_single(char* cipher_file, char* clear_file, bool use_big_byte, key_
 }
 
 //taken from https://stackoverflow.com/questions/612097/how-can-i-get-the-list-of-files-in-a-directory-using-c-or-c
-std::vector<std::string> get_all_files_names_within_folder(std::string folder) //a c++ 'ls' for Windows
+std::vector<std::string> get_all_files_names_within_folder(std::string folder) //a c++ 'ls' for Windows  //Comment this function completely for non-Windows platforms
 {
     std::vector<std::string> names;
     std::string search_path = folder + "/*.*";
@@ -439,7 +439,7 @@ int main(int argc, char** argv)
             }
     }
         
-    else if(argv[1][0]=='a') //all files in a folder
+    else if(argv[1][0]=='a') //all files in a folder  //Comment this block from here -
     {
         char mode, individual_passwords;
         if(argv[2][0]=='e') mode = 'e';
@@ -479,7 +479,9 @@ int main(int argc, char** argv)
                 strcpy(clear_file, (argv[4] + file_names[i] + ".decrypted").c_str());
                 decrypt_single(cipher_file, clear_file, use_big_byte, key);
             }
-    }
+    }                                                  //- to here for non-Windows platforms
+    
+    else if(argv[1][0]=='h')  show_help("Help\n");
         
-    else show_help("Error: Invalid arguments\n"); //can't you give one simple combination of characters dude?
+    else show_help("Error: Invalid arguments\n");
 }
