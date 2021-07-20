@@ -23,3 +23,6 @@ Please refer to "Whisper_doc.md" for details regarding the algorithm itself.
 
 This code hasn't been tested extensively. Though I haven't found any issues so far, I give no guarantees regarding its reliability in terms of security and reversibility. Use it at your own risk.  
 If you find a way to break the encryption, do let me know!
+
+Update 20-07-2021:  
+After some more testing, I have found that this program is not secure against a known-cleartext-attack. If you know about 50 characters (with their locations) from the original file, you can estimate the key by solving a bunch of coupled transcedental equations. Of course, if you are just trying to hide data from snoopy family members, and if none of them happen to be math graduates, this code will do the job for you.
