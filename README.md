@@ -25,4 +25,4 @@ This code hasn't been tested extensively. Though I haven't found any issues so f
 If you find a way to break the encryption, do let me know!
 
 Update 20-07-2021:  
-After some more testing, I have found that this program is not secure against a known-cleartext-attack. If you know about 50 characters (with their locations) from the original file, you can estimate the key by solving a bunch of coupled transcedental equations. Of course, if you are just trying to hide data from snoopy family members, and if none of them happen to be math graduates, this code will do the job for you.
+After some more testing, I have found that this program is not secure against a known-cleartext-attack. If you know about 50 characters (or fewer if you are good) from the original file, you can estimate the key by solving a bunch of coupled transcedental equations. Of course, if you are just trying to hide data from snoopy family members, and if none of them happen to be math graduates, this code will do the job for you.
