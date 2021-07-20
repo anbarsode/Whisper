@@ -196,15 +196,23 @@ void encrypt_single(char* clear_file, char* cipher_file, bool use_big_byte, key_
     
     float norm = find_normalization(key.num_coef);
     
-    std::string namestr("");
+    std::string namestr(""), name_len_str("");
     namestr = clear_file;
-    int name_len = namestr.length();
-    if(name_len > 100) std::cout << "Input file's name is too large (limit: 100 characters)" << std::endl;
-    for(int i=0; i<(99 - name_len); i++) namestr += " "; namestr += "\n";
+    name_len_str = std::to_string(namestr.length());
+    while(name_len_str.length() < 3) name_len_str.insert(name_len_str.begin(),'0');
     
     char c;
+    //write (encrypted) length of name of the original file
+    for(int j=0; j<3; j++)
+    {
+        c = name_len_str[j];
+        if(use_big_byte) g << float_to_bigbyte(forward_polynomial(c, key.num_coef, key.gamma, key.y, norm), num_bytes, mult);
+        else g << " " << std::setprecision(4 + key.num_coef) << std::fixed << forward_polynomial(c, key.num_coef, key.gamma, key.y, norm);
+        for(int i=0; i<key.num_coef; i++)
+            key.y[i] = iterfunc(key.y[i], key.p[i], key.q[i], key.r[i]);
+    }
     //write (encrypted) name of the original file at the beginning of the encrypted file
-    for(int j=0; j<100; j++)
+    for(int j=0; j<namestr.length(); j++)
     {
         c = namestr[j];
         if(use_big_byte) g << float_to_bigbyte(forward_polynomial(c, key.num_coef, key.gamma, key.y, norm), num_bytes, mult);
@@ -243,9 +251,30 @@ void decrypt_single(char* cipher_file, char* clear_file, bool use_big_byte, key_
     
     float a;
     char c;
+    std::string name_len_str("");
+    //read name length
+    for(int j=0; j<3; j++)
+    {
+        if(use_big_byte)
+        {
+            std::string s("");
+            for(int i=0; i<num_bytes; i++)
+                if(f.get(c)) s += c;
+                else if(i>0) std::cout << "Encrypted file is possibly currupt.";
+                else break;
+            if(!f.eof()) name_len_str += backward_polynomial(bigbyte_to_float(s, num_bytes, multinv), key.num_coef, key.gamma, key.y, norm);
+        }
+        else
+        {
+            f >> a;
+            name_len_str += backward_polynomial(a, key.num_coef, key.gamma, key.y, norm);
+        }
+        for(int i=0; i<key.num_coef; i++)
+            key.y[i] = iterfunc(key.y[i], key.p[i], key.q[i], key.r[i]);
+    }
     //read name data
     std::cout << "\nOriginal file was:\n\t";
-    for(int j=0; j<100; j++)
+    for(int j=0; j<stoi(name_len_str); j++)
     {
         if(use_big_byte)
         {
